@@ -38,24 +38,18 @@ import matplotlib.pyplot as plt
 dups['date'] = pd.to_datetime(dups['date']) #btw we should also change the data itself for later use
 data['date'] = pd.to_datetime(data["date"])
 
-#print(dups["date"])
-#print(dups.groupby(dups['date'].dt.strftime('%B'))[['id','house_price']].mean().sort_values('house_price'))
-# plot
-plt.plot(dups["date"],dups["house_price"])
-plt.gcf().autofmt_xdate()
-
-#plt.show()
 
 #============================================================0
 # lets see the variables impact to the price
 
 corr = data.corr()
 hh = sns.heatmap(corr, cmap="YlGnBu")
-#plt.show()
+plt.show()
+
 
 #lets get the higher correlations with house_price column
 st  = pd.DataFrame(corr['house_price'], index=corr.index)
-print(st.sort_values('house_price'))
+#print(st.sort_values('house_price'))
 #now we can see that house price more relatable with;
 
 # living15_sqft     0.585417
@@ -63,3 +57,9 @@ print(st.sort_values('house_price'))
 # grade             0.667358
 # living_sqft       0.701993
 
+
+########################### Location based visual #################################
+
+plt.scatter(data.house_price,data.long)
+plt.title("Location and Price Distribution")
+plt.show()
